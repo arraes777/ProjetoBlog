@@ -1,0 +1,29 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<h2 class="text-success border-buttom border-warning pb-1 nt-4">
+    Exclusão de Atividade
+</h2>
+
+<p class="lead">
+    Confirme para excluir o registro.
+</p>
+
+<hr>
+
+<form action="" method="POST">
+
+    <p>
+        Deseja excluir o registro: <b>{{ object }}</b> ?
+    </p>
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-danger">Excluir</button>
+
+</form>
+{% endblock %}
