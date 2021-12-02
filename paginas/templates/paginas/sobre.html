@@ -1,0 +1,22 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+
+<h1>Descrição do projeto</h1>
+
+<p class='"row bg-info p-2 mb-4"' style="border-style:solid; margin:20px;">
+    Eu Mateus Saulo, juntamente com Breno César e Adrian Andrade, estamos construindo um projeto semelhante ao moodle,
+    mas bem simplificado, onde tem o objetivo de ajudar os professores e os alunos no formato de um site de envio de
+    atividades escolares. Nele, os professores poderão adicionar suas atividades, fazer devidas modificações e conceder
+    nota as atividades concluidas. Já os alunos, poderão enviar e cancelar o envio de suas atividades.
+</p>
+
+<h3>Diagrama de Classe</h3>
+<img src="{% static 'img/diagrama-de-classe.png' %}" width="700" alt=""><br>
+
+<h3>Diagrama de Caso de uso</h3>
+<img src="{% static 'img/diagrama-caso-de-uso.png' %}" width="700" alt="">
+
+{% endblock %}
