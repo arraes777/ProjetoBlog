@@ -2,9 +2,11 @@
 
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block conteudo %}
 <h2 class="text-success border-buttom border-warning pb-1 nt-4">
-    Cadastro de atividade
+    {{ titulo }}
 </h2>
 
 <p class="lead">
@@ -17,9 +19,12 @@
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    {{ form|crispy }}
 
-    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <button type="submit" class="btn btn-{{cor}}">
+        {{ botao }}
+    </button>
+
 
 </form>
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% block conteudo %}
 <h2 class="text-success border-buttom border-warning pb-1 nt-4">
-    Exclusão de Atividade
+    {{ titulo }}
 </h2>
 
 <p class="lead">
@@ -23,7 +23,9 @@
 
     {{ form.as_p }}
 
-    <button type="submit" class="btn btn-danger">Excluir</button>
+    <button type="submit" class="btn btn-{{cor}}">
+        {{ botao }}
+    </button>
 
 </form>
 {% endblock %}

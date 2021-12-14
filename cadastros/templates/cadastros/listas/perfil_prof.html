@@ -1,0 +1,45 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<h2 class="text-success border-buttom border-warning pb-1 nt-4">
+    Listas de Professores registrados
+</h2>
+
+<a href="{% url 'cadastrar-perfil_prof' %}" class="btn btn-warning btn-sm">Adicionar Perfil Professor</a>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Titulação</th>
+            <th>Opções</th>
+        </tr>
+
+        {% for perfil_prof in object_list %}
+        <tr>
+            <td>{{ perfil_prof.pk }}</td>
+            <td>{{ perfil_prof.nome }}</td>
+            <td>{{ perfil_prof.idade }}</td>
+            <td>{{ perfil_prof.titulacao }}</td>
+
+            <td>
+                <a href="{% url 'editar-perfil_prof' perfil_prof.pk %}" class="btn btn-info btn-sm">Editar</a>
+                <a href="{% url 'excluir-perfil_prof' perfil_prof.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum Perfil Professor registrado.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}

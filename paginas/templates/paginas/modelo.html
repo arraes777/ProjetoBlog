@@ -46,8 +46,8 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
-            <img src="{% static 'img/iflogo.png' %}" width="40" alt=""><a class="navbar-brand" href="{% url 'index' %}">CLASSROOM</a>
+            <div class="container">
+            <img src="{% static 'img/ifpr.png' %}" width="60" alt=""><a class="navbar-brand" href="{% url 'index' %}">CLASSROOM</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -57,21 +57,24 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{% url 'index' %}">Inicio</a>
                         </li>
-
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Cadastros
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'cadastrar-atividade' %}">Atividade</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-atividade' %}">Atividades</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-curso' %}">Cursos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-turma' %}">Turmas</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-materia' %}">Materias</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-perfil_prof' %}">Perfil Professor</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-perfil_aluno' %}">Perfil Aluno</a></li>
                             </ul>
                         </li>
+                        {% endif %}
 
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -79,18 +82,49 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'listar-atividade' %}">Atividades</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar-curso' %}">Cursos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar-turma' %}">Turmas</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar-materia' %}">Materias</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar-perfil_prof' %}">Perfil Professor</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar-perfil_aluno' %}">Perfil Aluno</a></li>
                             </ul>
                         </li>
+                        {% endif %}
 
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
                         </li>
                     </ul>
-                    
+
+                <ul class="navbar-nav">
+                
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-primary mx-2, nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                {{ request.user }}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                Meus dados</a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                Alterar senha</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Sair</a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-success mx-2">Login</a>
+                    <a href="#" class="btn btn-success mx-2">Registrar</a>
+
+                    {% endif %}
+
+                </ul>
                 </div>
             </div>
         </nav>

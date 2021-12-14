@@ -1,0 +1,41 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<h2 class="text-success border-buttom border-warning pb-1 nt-4">
+    Listas de Turmas registradas
+</h2>
+
+<a href="{% url 'cadastrar-turma' %}" class="btn btn-warning btn-sm">Adicionar Turma</a>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Curso</th>
+            <th>Opções</th>
+        </tr>
+
+        {% for turma in object_list %}
+        <tr>
+            <td>{{ turma.pk }}</td>
+            <td>{{ turma.curso }}</td>
+
+            <td>
+                <a href="{% url 'editar-turma' turma.pk %}" class="btn btn-info btn-sm">Editar</a>
+                <a href="{% url 'excluir-turma' turma.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhuma Turma registrada.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}
