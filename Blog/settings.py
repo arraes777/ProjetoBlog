@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'cadastros.apps.CadastrosConfig',
     'usuarios.apps.UsuariosConfig',
     'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 # Crispy Forms
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,5 +139,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configurações de Autenticação
 LOGIN_REDIRECT_URL = 'index'
-LOGGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
