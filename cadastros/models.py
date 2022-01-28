@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -20,6 +21,7 @@ class Turma(models.Model):
 class Materia(models.Model):
     nome = models.CharField(max_length=50)
 
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     turma = models.ForeignKey(Turma, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -29,6 +31,7 @@ class Atividade(models.Model):
     descricao = models.CharField(max_length=100, verbose_name="Descrição")
     data_postagem = models.DateTimeField(verbose_name="Data da postagem", auto_now_add=True)
 
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
     materia = models.ForeignKey(Materia, on_delete=models.PROTECT)
 

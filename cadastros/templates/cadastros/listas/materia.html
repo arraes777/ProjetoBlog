@@ -16,7 +16,9 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Turma</th>
+            <th>Professor</th>
             <th>Opções</th>
+            
         </tr>
 
         {% for materia in object_list %}
@@ -24,6 +26,7 @@
             <td>{{ materia.pk }}</td>
             <td>{{ materia.nome }}</td>
             <td>{{ materia.turma }}</td>
+            <td>{{ materia.usuario }}</td>
 
             <td>
                 <a href="{% url 'editar-materia' materia.pk %}" class="btn btn-info btn-sm">Editar</a>
