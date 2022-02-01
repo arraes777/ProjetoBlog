@@ -85,8 +85,12 @@
                                 <li><a class="dropdown-item" href="{% url 'listar-curso' %}">Cursos</a></li>
                                 <li><a class="dropdown-item" href="{% url 'listar-turma' %}">Turmas</a></li>
                                 <li><a class="dropdown-item" href="{% url 'listar-materia' %}">Materias</a></li>
+
+
                                 <li><a class="dropdown-item" href="{% url 'listar-perfil_prof' %}">Perfil Professor</a></li>
                                 <li><a class="dropdown-item" href="{% url 'listar-perfil_aluno' %}">Perfil Aluno</a></li>
+
+
                             </ul>
                         </li>
                         {% endif %}
@@ -106,9 +110,18 @@
                                 <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 {{ request.user }}</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">
+                            
+                            {% if request.user.groups.all.0.name == "Alunos" %}
+                            <a class="dropdown-item" href="{% url 'editar-perfil_aluno' %}">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 Meus dados</a>
+                            
+                            {% elif request.user.groups.all.0.name == "Docente"%}
+                            <a class="dropdown-item" href="{% url 'editar-perfil_prof' %}">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                Meus dados</a>
+                            {% endif %}
+
                             <a class="dropdown-item" href="#">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                                 Alterar senha</a>

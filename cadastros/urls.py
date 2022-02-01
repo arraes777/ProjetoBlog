@@ -31,14 +31,14 @@ urlpatterns = [
 
 ############## Perfil Professor ##############
     path('cadastrar/perfil_prof/', Perfil_professorCreate.as_view(), name='cadastrar-perfil_prof'),
-    path('editar/perfil_prof/<int:pk>/', Perfil_professorUpdate.as_view(), name='editar-perfil_prof'),
+    path('editar/perfil_prof/', Perfil_professorUpdate.as_view(), name='editar-perfil_prof'),
     path('excluir/perfil_prof/<int:pk>/', Perfil_professorDelete.as_view(), name='excluir-perfil_prof'),
     path('listar/perfil_prof/', Perfil_professorList.as_view(), name='listar-perfil_prof'),
 
 ############## Perfil Aluno ##############
     path('cadastrar/perfil_aluno/', Perfil_alunoCreate.as_view(), name='cadastrar-perfil_aluno'),
-    path('editar/perfil_aluno/<int:pk>/', Perfil_alunoUpdate.as_view(), name='editar-perfil_aluno'),
-    path('excluir/perfil_aluno/<int:pk>/', Perfil_alunoDelete.as_view(), name='excluir-perfil_aluno'),
+    path('editar/perfil_aluno/', Perfil_alunoUpdate.as_view(), name='editar-perfil_aluno'),
+    path('excluir/perfil_aluno/', Perfil_alunoDelete.as_view(), name='excluir-perfil_aluno'),
     path('listar/perfil_aluno/', Perfil_alunoList.as_view(), name='listar-perfil_aluno'),
 
 ]

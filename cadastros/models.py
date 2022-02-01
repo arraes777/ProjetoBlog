@@ -40,19 +40,23 @@ class Atividade(models.Model):
 
 
 class Perfil_professor(models.Model):
-    nome = models.CharField(max_length=50)
-    idade = models.IntegerField()
-    titulacao = models.CharField(max_length=100, verbose_name="Titulação")
+    nome = models.CharField(max_length=50, null=True)
+    idade = models.IntegerField(null=True)
+    titulacao = models.CharField(max_length=100, verbose_name="Titulação", null=True)
+
+    professor = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} ({})".format(self.nome, self.idade, self.titulacao)
 
 
 class Perfil_aluno(models.Model):
-    nome = models.CharField(max_length=50)
-    idade = models.IntegerField()
+    nome = models.CharField(max_length=50, null=True)
+    idade = models.IntegerField(null=True)
 
-    turma = models.ForeignKey(Turma, on_delete=models.PROTECT)
+    turma = models.ForeignKey(Turma, on_delete=models.PROTECT, null=True)
+    aluno = models.OneToOneField(User, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return "{} ({})".format(self.nome, self.turma, self.idade)
