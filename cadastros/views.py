@@ -65,8 +65,8 @@ class AtividadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = ["Administrador", "Docente"]
     model = Atividade
-    fields = ['descricao', 'curso', 'materia', 'usuario']
-    template_name = 'cadastros/form.html'
+    fields = ['descricao', 'curso', 'materia', 'usuario', 'arquivo']
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('index')
 
     def get_context_data(self, **kwargs):

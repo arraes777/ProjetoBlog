@@ -30,6 +30,7 @@ class Materia(models.Model):
 class Atividade(models.Model):
     descricao = models.CharField(max_length=100, verbose_name="Descrição")
     data_postagem = models.DateTimeField(verbose_name="Data da postagem", auto_now_add=True)
+    arquivo = models.FileField(upload_to='pdf/')
 
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
