@@ -41,18 +41,20 @@ class Atividade(models.Model):
 
 
 class Perfil_professor(models.Model):
-    nome = models.CharField(max_length=50, null=True)
+    nome_completo = models.CharField(max_length=50, verbose_name="Nome Completo", null=True)
+    cpf = models.CharField(max_length=14, null=True, verbose_name="CPF")
     idade = models.IntegerField(null=True)
     titulacao = models.CharField(max_length=100, verbose_name="Titulação", null=True)
 
     professor = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} ({})".format(self.nome, self.idade, self.titulacao)
+        return "{} ({})".format(self.nome_completo, self.idade, self.titulacao)
 
 
 class Perfil_aluno(models.Model):
-    nome = models.CharField(max_length=50, null=True)
+    nome_completo = models.CharField(max_length=50, verbose_name="Nome Completo", null=True)
+    cpf = models.CharField(max_length=14, null=True, verbose_name="CPF")
     idade = models.IntegerField(null=True)
 
     turma = models.ForeignKey(Turma, on_delete=models.PROTECT, null=True)
@@ -60,4 +62,4 @@ class Perfil_aluno(models.Model):
 
 
     def __str__(self):
-        return "{} ({})".format(self.nome, self.turma, self.idade)
+        return "{} ({})".format(self.nome_completo, self.turma, self.idade)

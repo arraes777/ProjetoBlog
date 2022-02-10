@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 
-from django.shortcuts import get_object_or_404  
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -31,6 +31,7 @@ class CursoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['cor'] = 'primary'
         return context
 
+
 class TurmaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -45,6 +46,7 @@ class TurmaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['botao'] = 'Cadastrar'
         context['cor'] = 'primary'
         return context
+
 
 class MateriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
@@ -61,6 +63,7 @@ class MateriaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['cor'] = 'primary'
         return context
 
+
 class AtividadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = ["Administrador", "Docente"]
@@ -76,11 +79,12 @@ class AtividadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         context['cor'] = 'primary'
         return context
 
+
 class Perfil_professorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
     model = Perfil_professor
-    fields = ['nome', 'idade', 'titulacao']
+    fields = ['nome_completo', 'cpf', 'idade', 'titulacao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('index')
 
@@ -91,11 +95,12 @@ class Perfil_professorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView)
         context['cor'] = 'primary'
         return context
 
+
 class Perfil_alunoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
     model = Perfil_aluno
-    fields = ['nome', 'idade', 'turma']
+    fields = ['nome_completo', 'cpf', 'idade', 'turma']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('index')
 
@@ -108,12 +113,13 @@ class Perfil_alunoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
 ####################### UPDATE ###################
 
+
 class AtividadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
-    group_required = u"Administrador"
+    group_required = ["Administrador", "Docente"]
     model = Atividade
-    fields = ['descricao', 'curso', 'materia', 'usuario']
-    template_name = 'cadastros/form.html'
+    fields = ['descricao', 'curso', 'materia', 'usuario', 'arquivo']
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('index')
 
     def get_context_data(self, **kwargs):
@@ -124,8 +130,10 @@ class AtividadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return context
 
     def get_object(self, queryset=None):
-        self.object = get_object_or_404(Atividade, pk=self.kwargs['pk'], usuario=self.request.user)
+        self.object = get_object_or_404(
+            Atividade, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
+
 
 class CursoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
@@ -142,6 +150,7 @@ class CursoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['cor'] = 'primary'
         return context
 
+
 class TurmaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -156,6 +165,7 @@ class TurmaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         context['botao'] = 'Salvar'
         context['cor'] = 'primary'
         return context
+
 
 class MateriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
@@ -173,14 +183,16 @@ class MateriaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return context
 
     def get_object(self, queryset=None):
-        self.object = get_object_or_404(Materia, pk=self.kwargs['pk'], usuario=self.request.user)
+        self.object = get_object_or_404(
+            Materia, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
-        
+
+
 class Perfil_professorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = u"Docente"
     model = Perfil_professor
-    fields = ['nome', 'idade', 'titulacao']
+    fields = ['nome_completo', 'cpf', 'idade', 'titulacao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('index')
 
@@ -190,7 +202,7 @@ class Perfil_professorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Editar Perfil Professor'
+        context['titulo'] = 'Meus dados pessoais'
         context['botao'] = 'Salvar'
         context['cor'] = 'primary'
         return context
@@ -200,7 +212,7 @@ class Perfil_alunoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     group_required = u"Alunos"
     model = Perfil_aluno
-    fields = ['nome', 'idade', 'turma']
+    fields = ['nome_completo', 'cpf', 'idade', 'turma']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('index')
 
@@ -210,11 +222,12 @@ class Perfil_alunoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Editar Perfil Aluno'
+        context['titulo'] = 'Meus dados pessoais'
         context['botao'] = 'Salvar'
         context['cor'] = 'primary'
         return context
 ####################### DELETE ###################
+
 
 class AtividadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
@@ -231,9 +244,11 @@ class AtividadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         return context
 
     def get_object(self, queryset=None):
-        self.object = get_object_or_404(Atividade, pk=self.kwargs['pk'], usuario=self.request.user)
+        self.object = get_object_or_404(
+            Atividade, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
-    
+
+
 class CursoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -248,6 +263,7 @@ class CursoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         context['cor'] = 'danger'
         return context
 
+
 class TurmaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -261,6 +277,7 @@ class TurmaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         context['botao'] = 'Excluir'
         context['cor'] = 'danger'
         return context
+
 
 class MateriaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
@@ -277,8 +294,10 @@ class MateriaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         return context
 
     def get_object(self, queryset=None):
-        self.object = get_object_or_404(Materia, pk=self.kwargs['pk'], usuario=self.request.user)
+        self.object = get_object_or_404(
+            Materia, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
+
 
 class Perfil_professorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
@@ -293,7 +312,8 @@ class Perfil_professorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView)
         context['botao'] = 'Excluir'
         context['cor'] = 'danger'
         return context
-    
+
+
 class Perfil_alunoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
@@ -320,15 +340,18 @@ class AtividadeList(LoginRequiredMixin, ListView):
         self.object_list = Atividade.objects.filter(usuario=self.request.user)
         return self.object_list
 
+
 class CursoList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Curso
     template_name = 'cadastros/listas/curso.html'
 
+
 class TurmaList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Turma
     template_name = 'cadastros/listas/turma.html'
+
 
 class MateriaList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
@@ -339,10 +362,12 @@ class MateriaList(LoginRequiredMixin, ListView):
         self.object_list = Materia.objects.filter(usuario=self.request.user)
         return self.object_list
 
+
 class Perfil_professorList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Perfil_professor
     template_name = 'cadastros/listas/perfil_prof.html'
+
 
 class Perfil_alunoList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
