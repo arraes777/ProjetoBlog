@@ -12,38 +12,54 @@
 <hr>
 <div class="table-responsive">
 <table class="table table-striped">
-    <tr>
-        <th>ID</th>
-        <th>Descrição</th>
-        <th>Curso</th>
-        <th>Matéria</th>
-        <th>Professor</th>
-        <th>Arquivo</th>
-        <th>Opções</th>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Curso</th>
+            <th>Matéria</th>
+            <th>Professor</th>
+            <th>Arquivo</th>
+            <th>Opções</th>
+        </tr>
+    
 
-    </tr>
+    <tbody>
+        
+        {% for atividade in object_list %}
+        <tr>
+            <td>{{ atividade.pk }}</td>
+            <td>{{ atividade.descricao }}</td>
+            <td>{{ atividade.curso }}</td>
+            <td>{{ atividade.materia }}</td>
+            <td>{{ atividade.usuario }}</td>
+            <td><a href="{{ atividade.arquivo.url }}">Visualizar</a></td> 
+            <td>
+                <a href="{% url 'editar-atividade' atividade.pk %}" class="btn btn-info btn-sm">Editar</a>
+                <a href="{% url 'excluir-atividade' atividade.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
+        </tr>
 
-    {% for atividade in object_list %}
-    <tr>
-        <td>{{ atividade.pk }}</td>
-        <td>{{ atividade.descricao }}</td>
-        <td>{{ atividade.curso }}</td>
-        <td>{{ atividade.materia }}</td>
-        <td>{{ atividade.usuario }}</td>
-        <td><a href="{{ atividade.arquivo.url }}">Visualizar</a></td> 
-        <td>
-            <a href="{% url 'editar-atividade' atividade.pk %}" class="btn btn-info btn-sm">Editar</a>
-            <a href="{% url 'excluir-atividade' atividade.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-        </td>
-    </tr>
-
-    {% empty %}
-    <tr>
-        <td colspan="3">Nenhuma Atividade registrada.</td>
-    </tr>
-
-    {% endfor %}
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhuma Atividade registrada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 
 </table>
 </div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#tabela-listar").DataTable();
+
+    });
+
+</script>
 {% endblock %}

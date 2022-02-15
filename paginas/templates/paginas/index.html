@@ -10,9 +10,12 @@
 
 
 <div class="row bg-success p-3 mb-2">
-    <h4>Atividades postadas recentes</h4>
+    <h4>Educação a distância IFPR
+    (Conectada com a sua vida)</h4>
+
+    <img src="{% static 'img/educacao.png' %}" width="700" alt="" class="img-fluid"><br>
     
-    {% for a in object_list %}
+  <!-- {% for a in object_list %}
     
     <div class="card text-left">
       <img class="card-img-top" src="holder.js/100px180/" alt="">
@@ -21,7 +24,7 @@
         <p class="card-text">{{ a.descricao }}</p>
       </div>
     </div>
-
+-->
     {% empty %}
     <p>Nenhum registro encontrado...</p>
     {% endfor %}

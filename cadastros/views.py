@@ -231,7 +231,7 @@ class Perfil_alunoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
 
 class AtividadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
-    group_required = u"Administrador"
+    group_required = ["Docente"]
     model = Atividade
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('index')
@@ -357,10 +357,21 @@ class MateriaList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = Materia
     template_name = 'cadastros/listas/materia.html'
+    paginate_by = 10
 
     def get_queryset(self):
         self.object_list = Materia.objects.filter(usuario=self.request.user)
         return self.object_list
+        
+    def get_queryset(self):
+
+        txt_nome = self.request.GET.get('nome')
+
+        if txt_nome:
+            materias = Materia.objects.filter(nome__icontains=txt_nome)
+        else:
+            materias = Materia.objects.all()
+        return materias
 
 
 class Perfil_professorList(LoginRequiredMixin, ListView):

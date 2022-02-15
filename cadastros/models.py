@@ -49,7 +49,7 @@ class Perfil_professor(models.Model):
     professor = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} ({})".format(self.nome_completo, self.idade, self.titulacao)
+        return "{} ({})".format(self.nome_completo, self.cpf, self.idade, self.titulacao)
 
 
 class Perfil_aluno(models.Model):
@@ -62,4 +62,4 @@ class Perfil_aluno(models.Model):
 
 
     def __str__(self):
-        return "{} ({})".format(self.nome_completo, self.turma, self.idade)
+        return "{} ({})".format(self.nome_completo, self.cpf, self.turma, self.idade)
